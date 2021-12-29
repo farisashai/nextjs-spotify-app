@@ -1,28 +1,8 @@
 import cookie from 'cookie'
 import { GetServerSideProps } from 'next'
-import Iron from '@hapi/iron'
 
-import App from '../src/App'
-import { UserSession } from '../utils/cookies'
-
-export const getSessionCookie = async (
-  cookies: Record<string, string>,
-): Promise<UserSession> => {
-  const cookie = cookies['auth.session']
-
-  if (!cookie) {
-    throw new Error('Auth session not found')
-  }
-
-  // Decrypt the auth cookie
-  const decoded = await Iron.unseal(
-    cookie,
-    process.env.SESSION_SECRET,
-    Iron.defaults,
-  )
-
-  return decoded
-}
+import App from 'components/App'
+import { getSessionCookie } from 'utils/cookies'
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   try {
@@ -30,8 +10,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const session = await getSessionCookie(cookies)
 
     return {
-      props: {
-        user: session.user,
+      props: { 
+        session,
       },
     }
   } catch {
@@ -41,6 +21,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 }
 
-export default function IndexPage(props) {
-  return <App user={props.user} />
+const IndexPage = ({ session, spotifyApi }) => {
+  return <App session={session} />
 }
+
+export default IndexPage

@@ -66,3 +66,22 @@ export const setAuthCookie = async (
     return
   }
 }
+
+export const getSessionCookie = async (
+  cookies: Record<string, string>,
+): Promise<UserSession> => {
+  const cookie = cookies['auth.session']
+
+  if (!cookie) {
+    throw new Error('Auth session not found')
+  }
+
+  // Decrypt the auth cookie
+  const decoded = await Iron.unseal(
+    cookie,
+    process.env.SESSION_SECRET,
+    Iron.defaults,
+  )
+
+  return decoded
+}
