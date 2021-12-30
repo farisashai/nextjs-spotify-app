@@ -1,28 +1,32 @@
-import cookie from 'cookie'
-import { GetServerSideProps } from 'next'
+import cookie from "cookie";
+import { GetServerSideProps } from "next";
 
-import App from 'components/App'
-import { getSessionCookie } from 'utils/cookies'
+import App from "components/App";
+import { getSessionCookie, UserSession } from "utils/cookies";
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   try {
-    const cookies = cookie.parse(req.headers.cookie || '')
-    const session = await getSessionCookie(cookies)
+    const cookies = cookie.parse(req.headers.cookie || "");
+    const session = await getSessionCookie(cookies);
 
     return {
-      props: { 
+      props: {
         session,
       },
-    }
+    };
   } catch {
     return {
       props: {},
-    }
+    };
   }
+};
+
+interface IndexProps {
+  session: UserSession;
 }
 
-const IndexPage = ({ session, spotifyApi }) => {
-  return <App session={session} />
-}
+const IndexPage: React.FC<IndexProps> = ({ session }) => {
+  return <App session={session} />;
+};
 
-export default IndexPage
+export default IndexPage;
