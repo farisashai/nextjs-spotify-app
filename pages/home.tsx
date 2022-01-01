@@ -1,26 +1,35 @@
+import Card from "components/common/Card";
+import LogoutButton from "components/homePage/Logout";
+import TopArtists from "components/homePage/TopArtists";
+import TopTracks from "components/homePage/TopTracks";
 import cookie from "cookie";
 import { GetServerSideProps, GetServerSidePropsResult } from "next";
-import { useEffect } from "react";
+import { useState } from "react";
 import { getSessionCookie, UserSession } from "utils/cookies";
-import createSpotifyApi from "utils/spotify";
+import { createSpotifyApi } from "utils/spotify";
 
 interface HomeProps {
   session: UserSession;
   track: SpotifyApi.CurrentlyPlayingResponse;
 }
 
-const Home: React.FC<HomeProps> = ({ session, track }) => {
-  console.log(track);
-
+const HomePage: React.FC<HomeProps> = ({ session, track }) => {
+  const [CurrentTab, setCurrentTab] = useState(() => null);
   return (
     <div>
       <h1>Logged In: {session.user.display_name}</h1>
-      <p>Current Track: {track.item.name}</p>
+      <h2>Current Track: {track?.item?.name || "None"}</h2>
+      <button onClick={() => setCurrentTab(() => TopArtists)}>
+        Top Artists
+      </button>
+      <button onClick={() => setCurrentTab(() => TopTracks)}>Top Tracks</button>
+      <hr />
+      {CurrentTab && <CurrentTab />}
     </div>
   );
 };
 
-export default Home;
+export default HomePage;
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const noAuth: GetServerSidePropsResult<HomeProps> = {

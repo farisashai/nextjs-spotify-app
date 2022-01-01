@@ -4,7 +4,7 @@ import axios from "axios";
 import querystring from "querystring";
 import { NextApiRequest, NextApiResponse } from "next";
 
-import createSpotifyApi from "utils/spotify";
+import { createSpotifyApi } from "utils/spotify";
 import { setAuthCookie, UserSession } from "utils/cookies";
 
 const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } = process.env;

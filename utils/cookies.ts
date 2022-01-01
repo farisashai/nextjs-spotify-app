@@ -76,3 +76,7 @@ export const getSessionCookie = async (
 
   return decoded;
 };
+
+export const clearCookies = () => {
+  document.cookie = "auth.session= expires=Thu, 01 Jan 1970 00:00:00 GMT";
+};

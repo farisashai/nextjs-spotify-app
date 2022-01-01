@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap");
+
+* {
+  transition: 0.3s ease-in-out;
+  font-family: "Lato", sans-serif;
+}
+
+body {
+  background: #556270;
+  background: -webkit-linear-gradient(to right, #ff6b6b, #556270);
+  background: linear-gradient(to right, #ff6b6b, #556270);
+  color: #fff;
+}
