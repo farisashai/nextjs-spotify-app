@@ -6,26 +6,25 @@ import { UserSession } from "utils/cookies";
 import { defaultFetcher } from "utils/fetcher";
 import s from "./styles.module.scss";
 
-interface TopTracksProps {}
+interface TopArtistsProps {}
 
-// interface TracksDatatype {
-//   external_urls?: any;
-//   followers?: any;
-//   genres?: any[];
-//   href?: string;
-//   id?: string;
-//   images?: any[];
-//   name?: string;
-//   popularity?: number;
-//   type: "artist";
-//   uri?: string;
-// }
-
-const TopTracks: React.FC<TopTracksProps> = () => {
+interface ArtistDatatype {
+  external_urls?: any;
+  followers?: any;
+  genres?: any[];
+  href?: string;
+  id?: string;
+  images?: any[];
+  name?: string;
+  popularity?: number;
+  type: "artist";
+  uri?: string;
+}
+const TopAlbums: React.FC<TopArtistsProps> = () => {
   const [term, setTerm] = useState("medium_term");
-  //   : { data?: ArtistDatatype[]; error?: any }
-  const { data, error } = useSWR(
-    `/api/spotify/top/tracks?range=${term}`,
+
+  const { data, error }: { data?: ArtistDatatype[]; error?: any } = useSWR(
+    `/api/spotify/top/albums?range=${term}`,
     defaultFetcher
   );
 
@@ -37,7 +36,7 @@ const TopTracks: React.FC<TopTracksProps> = () => {
 
   return (
     <div className={s.container}>
-      <h1>Top Tracks</h1>
+      <h1>Top Albums</h1>
       <button onClick={() => setTerm("short_term")}>Past month</button>
       <button onClick={() => setTerm("medium_term")}>Past 6 month</button>
       <button onClick={() => setTerm("long_term")}>All time</button>
@@ -45,7 +44,7 @@ const TopTracks: React.FC<TopTracksProps> = () => {
       {data.map((item, index) => (
         <Card
           key={`${item.name}-${index}`}
-          image={item.album.images[0].url}
+          image={item.images[0].url}
           alt={item.name}
           title={item.name}
           href={item.external_urls.spotify}
@@ -56,4 +55,4 @@ const TopTracks: React.FC<TopTracksProps> = () => {
   );
 };
 
-export default TopTracks;
+export default TopAlbums;

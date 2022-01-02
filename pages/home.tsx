@@ -1,5 +1,6 @@
 import Card from "components/common/Card";
 import LogoutButton from "components/homePage/Logout";
+import TopAlbums from "components/homePage/TopAlbums";
 import TopArtists from "components/homePage/TopArtists";
 import TopTracks from "components/homePage/TopTracks";
 import cookie from "cookie";
@@ -14,17 +15,18 @@ interface HomeProps {
 }
 
 const HomePage: React.FC<HomeProps> = ({ session, track }) => {
-  const [CurrentTab, setCurrentTab] = useState(() => null);
+  const [currentMode, setCurrentMode] = useState("top-artists");
   return (
     <div>
       <h1>Logged In: {session.user.display_name}</h1>
       <h2>Current Track: {track?.item?.name || "None"}</h2>
-      <button onClick={() => setCurrentTab(() => TopArtists)}>
-        Top Artists
-      </button>
-      <button onClick={() => setCurrentTab(() => TopTracks)}>Top Tracks</button>
+      <button onClick={() => setCurrentMode("top-artists")}>Top Artists</button>
+      <button onClick={() => setCurrentMode("top-tracks")}>Top Tracks</button>
+      <button onClick={() => setCurrentMode("top-albums")}>Top Albums</button>
       <hr />
-      {CurrentTab && <CurrentTab />}
+      {currentMode === "top-artists" && <TopArtists />}
+      {currentMode === "top-tracks" && <TopTracks />}
+      {currentMode === "top-albums" && <TopAlbums />}
     </div>
   );
 };

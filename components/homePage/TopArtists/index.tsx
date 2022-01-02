@@ -24,7 +24,7 @@ const TopArtists: React.FC<TopArtistsProps> = () => {
   const [term, setTerm] = useState("medium_term");
 
   const { data, error }: { data?: ArtistDatatype[]; error?: any } = useSWR(
-    `/api/spotify/artists?range=${term}`,
+    `/api/spotify/top/artists?range=${term}`,
     defaultFetcher
   );
 

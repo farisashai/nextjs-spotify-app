@@ -14,23 +14,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const cookies = cookie.parse(req.headers.cookie || "");
     const session = await getSessionCookie(cookies);
-    let items = [];
+    let tracks = [];
 
     await axios
       .get(
         `${API_URL}/v1/me/top/tracks?offset=0&limit=50&time_range=${range}`,
         setAuthHeaders(session)
       )
-      .then((response) => items.push(...response.data.items));
+      .then((response) => tracks.push(...response.data.items));
 
     await axios
       .get(
         `${API_URL}/v1/me/top/tracks?offset=49&limit=50`,
         setAuthHeaders(session)
       )
-      .then((response) => items.push(...response.data.items));
+      .then((response) => tracks.push(...response.data.items));
 
-    res.status(200).json(items);
+    res.status(200).json(tracks);
   } catch {
     return res.status(404);
   }
