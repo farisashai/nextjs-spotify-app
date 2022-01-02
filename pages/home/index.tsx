@@ -1,13 +1,11 @@
-import Card from "components/common/Card";
-import LogoutButton from "components/homePage/Logout";
-import TopAlbums from "components/homePage/TopAlbums";
+import LogoutButton from "components/homePage/LogoutButton";
 import TopArtists from "components/homePage/TopArtists";
-import TopTracks from "components/homePage/TopTracks";
 import cookie from "cookie";
 import { GetServerSideProps, GetServerSidePropsResult } from "next";
-import { useState } from "react";
+import Link from "next/link";
 import { getSessionCookie, UserSession } from "utils/cookies";
 import { createSpotifyApi } from "utils/spotify";
+import s from "styles/Home.module.scss";
 
 interface HomeProps {
   session: UserSession;
@@ -15,18 +13,21 @@ interface HomeProps {
 }
 
 const HomePage: React.FC<HomeProps> = ({ session, track }) => {
-  const [currentMode, setCurrentMode] = useState("top-artists");
   return (
     <div>
       <h1>Logged In: {session.user.display_name}</h1>
       <h2>Current Track: {track?.item?.name || "None"}</h2>
-      <button onClick={() => setCurrentMode("top-artists")}>Top Artists</button>
-      <button onClick={() => setCurrentMode("top-tracks")}>Top Tracks</button>
-      <button onClick={() => setCurrentMode("top-albums")}>Top Albums</button>
+      <LogoutButton />
+      <Link href={"/home/top-artists"}>
+        <a className={s.button}>Top Artists</a>
+      </Link>
+      <Link href={"/home/top-tracks"}>
+        <a className={s.button}>Top Tracks</a>
+      </Link>
+      <Link href={"/home/top-albums"}>
+        <a className={s.button}>Top Albums</a>
+      </Link>
       <hr />
-      {currentMode === "top-artists" && <TopArtists />}
-      {currentMode === "top-tracks" && <TopTracks />}
-      {currentMode === "top-albums" && <TopAlbums />}
     </div>
   );
 };

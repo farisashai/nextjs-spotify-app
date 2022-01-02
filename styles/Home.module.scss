@@ -1,0 +1,13 @@
+.button {
+  background: #0000;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  padding: 0.5rem;
+  text-decoration: none;
+
+  &:visited {
+    color: #fff;
+  }
+}

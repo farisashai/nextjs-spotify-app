@@ -1,6 +1,7 @@
 import Link from "next/link";
-import s from "./styles.module.scss";
+import s from "styles/Login.module.scss";
 import { FaSpotify } from "react-icons/fa";
+
 interface LoginButtonProps {}
 
 const LoginButton: React.FC<LoginButtonProps> = () => {

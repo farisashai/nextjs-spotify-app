@@ -16,12 +16,13 @@ const Card: React.FC<CardProps> = ({ image, alt, title, href, number }) => {
         className={s.image}
         src={image}
         alt={alt}
-        width={300}
-        height={300}
+        width={200}
+        height={200}
       />
       <div className={s.body}>
-        <p>
-          {number}: {title}
+        <p className={s.title}>
+          {/* {number}:  */}
+          {title}
         </p>
       </div>
     </div>
