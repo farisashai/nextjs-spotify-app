@@ -1,4 +1,5 @@
 // utils/spotify.ts
+import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
 import { UserSession } from "./cookies";
 
@@ -21,4 +22,20 @@ export const setAuthHeaders = (session: UserSession) => {
       Authorization: `Bearer ${session.token.access_token}`,
     },
   };
+};
+
+export const savePlaylist = (
+  title = "Top Tracks",
+  description,
+  tracks = []
+) => {
+  axios
+    .post("/api/spotify/playlist/create", {
+      title: title,
+      description,
+      ispublic: false,
+      collaborative: false,
+      tracks,
+    })
+    .catch((err) => console.error(err));
 };
