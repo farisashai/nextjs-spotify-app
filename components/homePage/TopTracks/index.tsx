@@ -1,5 +1,5 @@
 import Card from "components/common/Card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { defaultFetcher } from "utils/fetcher";
 import s from "styles/Home.module.scss";
@@ -7,6 +7,14 @@ import style from "./styles.module.scss";
 import axios from "axios";
 import { savePlaylist } from "utils/spotify";
 import { termString } from "utils";
+import {
+  LONG_TERM,
+  MEDIUM_TERM,
+  SAVE_COMPLETE_LABEL,
+  SAVE_IN_PROGRESS_LABEL,
+  SAVE_PLAYLIST_LABEL,
+  SHORT_TERM,
+} from "utils/constants";
 
 interface TopTracksProps {}
 
@@ -25,10 +33,17 @@ interface TracksDatatype {
 
 const TopTracks: React.FC<TopTracksProps> = () => {
   const [term, setTerm] = useState("medium_term");
+  const [saveTerm, setSaveTerm] = useState(SAVE_PLAYLIST_LABEL);
+
   const { data, error } = useSWR(
     `/api/spotify/top/tracks?range=${term}`,
     defaultFetcher
   );
+
+  useEffect(() => {
+    if (saveTerm === SAVE_COMPLETE_LABEL)
+      setTimeout(() => setSaveTerm(SAVE_PLAYLIST_LABEL), 3000);
+  }, [saveTerm]);
 
   if (error)
     return (
@@ -52,16 +67,39 @@ const TopTracks: React.FC<TopTracksProps> = () => {
   return (
     <div className={style.container}>
       <h1>Top Tracks {termString(term)}</h1>
-      <button onClick={() => setTerm("short_term")} className={s.button}>
-        Past month
-      </button>
-      <button onClick={() => setTerm("medium_term")} className={s.button}>
-        Past 6 month
-      </button>
-      <button onClick={() => setTerm("long_term")} className={s.button}>
-        All time
-      </button>
-      <br />
+      <div className={s.buttonContainer}>
+        <div className="">
+          <button onClick={() => setTerm(SHORT_TERM)} className={s.button}>
+            Past month
+          </button>
+          <button onClick={() => setTerm(MEDIUM_TERM)} className={s.button}>
+            Past 6 month
+          </button>
+          <button onClick={() => setTerm(LONG_TERM)} className={s.button}>
+            All time
+          </button>
+        </div>
+        <button
+          className={s.button}
+          onClick={() => {
+            if (saveTerm === SAVE_PLAYLIST_LABEL) {
+              setSaveTerm(SAVE_IN_PROGRESS_LABEL);
+
+              savePlaylist(
+                `Top 100 Tracks${termString(term)}`,
+                `Your top tracks. Generated on ${new Date().toDateString()} by ${
+                  window.location.host
+                }`,
+                data.map((item) => item.uri)
+              );
+              setSaveTerm(SAVE_COMPLETE_LABEL);
+            }
+          }}
+        >
+          {saveTerm}
+        </button>
+      </div>
+
       {data.map(
         (
           item: {
@@ -82,17 +120,6 @@ const TopTracks: React.FC<TopTracksProps> = () => {
         )
       )}
       <br />
-      <button
-        onClick={() => {
-          savePlaylist(
-            `Top 100 Tracks${termString(term)}`,
-            `Your top tracks. Generated on ${new Date().toDateString()}`,
-            data.map((item) => item.uri)
-          );
-        }}
-      >
-        Save Playlist
-      </button>
     </div>
   );
 };

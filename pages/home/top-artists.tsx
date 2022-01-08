@@ -6,6 +6,7 @@ import Link from "next/link";
 import { getSessionCookie, UserSession } from "utils/cookies";
 import { createSpotifyApi } from "utils/spotify";
 import s from "styles/Home.module.scss";
+import Navbar from "components/common/Navbar";
 
 interface HomeProps {
   session: UserSession;
@@ -15,9 +16,7 @@ interface HomeProps {
 const HomePage: React.FC<HomeProps> = ({ session, track }) => {
   return (
     <div>
-      <h1>Logged In: {session.user.display_name}</h1>
-      <h2>Current Track: {track?.item?.name || "None"}</h2>
-      <LogoutButton />
+      <Navbar user={session.user} track={track} />
       <Link href={"/home/top-artists"}>
         <a className={s.button}>Top Artists</a>
       </Link>

@@ -1,3 +1,5 @@
+import { LONG_TERM, MEDIUM_TERM, SHORT_TERM } from "./constants";
+
 export const splitArray = <T extends unknown>(arr: T[], size: number): T[] => {
   return arr.reduce((resultArray, item, index) => {
     const chunkIndex = Math.floor(index / size);
@@ -14,11 +16,11 @@ export const splitArray = <T extends unknown>(arr: T[], size: number): T[] => {
 
 export const termString = (term) => {
   switch (term) {
-    case "short_term":
+    case SHORT_TERM:
       return " (Past Month)";
-    case "medium_term":
+    case MEDIUM_TERM:
       return " (Past 6 months)";
-    case "long_term":
+    case LONG_TERM:
       return " (All Time)";
     default:
       return "";

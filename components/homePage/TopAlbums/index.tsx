@@ -5,6 +5,7 @@ import { defaultFetcher } from "utils/fetcher";
 import s from "styles/Home.module.scss";
 import style from "./styles.module.scss";
 import { termString } from "utils";
+import { LONG_TERM, MEDIUM_TERM, SHORT_TERM } from "utils/constants";
 
 interface TopArtistsProps {}
 
@@ -51,15 +52,20 @@ const TopAlbums: React.FC<TopArtistsProps> = () => {
   return (
     <div className={style.container}>
       <h1>Top Albums {termString(term)}</h1>
-      <button onClick={() => setTerm("short_term")} className={s.button}>
-        Past month
-      </button>
-      <button onClick={() => setTerm("medium_term")} className={s.button}>
-        Past 6 month
-      </button>
-      <button onClick={() => setTerm("long_term")} className={s.button}>
-        All time
-      </button>
+      <div className={s.buttonContainer}>
+        <div className="">
+          <button onClick={() => setTerm(SHORT_TERM)} className={s.button}>
+            Past month
+          </button>
+          <button onClick={() => setTerm(MEDIUM_TERM)} className={s.button}>
+            Past 6 month
+          </button>
+          <button onClick={() => setTerm(LONG_TERM)} className={s.button}>
+            All time
+          </button>
+        </div>
+      </div>
+
       <br />
       {data.map((item, index) => (
         <Card

@@ -10,4 +10,14 @@
   &:visited {
     color: #fff;
   }
+  &:hover {
+    background: #fff;
+    color: #005;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
 }
