@@ -4,6 +4,7 @@ import useSWR from "swr";
 import { defaultFetcher } from "utils/fetcher";
 import s from "styles/Home.module.scss";
 import style from "./styles.module.scss";
+import { termString } from "utils";
 
 interface TopArtistsProps {}
 
@@ -49,7 +50,7 @@ const TopAlbums: React.FC<TopArtistsProps> = () => {
 
   return (
     <div className={style.container}>
-      <h1>Top Albums</h1>
+      <h1>Top Albums {termString(term)}</h1>
       <button onClick={() => setTerm("short_term")} className={s.button}>
         Past month
       </button>

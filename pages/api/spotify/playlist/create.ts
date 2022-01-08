@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import cookie from "cookie";
 import { getSessionCookie } from "utils/cookies";
 import { createSpotifyApi } from "utils/spotify";
+import { splitArray } from "utils";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -25,7 +26,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       public: ispublic,
     });
 
-    await spotifyApi.addTracksToPlaylist(response.body.id, tracks);
+    const x = await Promise.all(
+      splitArray(tracks, 100).map(async (trackList: string[]) => {
+        return await spotifyApi.addTracksToPlaylist(
+          response.body.id,
+          trackList
+        );
+      })
+    );
 
     res.status(200).end();
   } catch {

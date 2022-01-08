@@ -6,6 +6,7 @@ import s from "styles/Home.module.scss";
 import style from "./styles.module.scss";
 import axios from "axios";
 import { savePlaylist } from "utils/spotify";
+import { termString } from "utils";
 
 interface TopTracksProps {}
 
@@ -50,7 +51,7 @@ const TopTracks: React.FC<TopTracksProps> = () => {
 
   return (
     <div className={style.container}>
-      <h1>Top Tracks</h1>
+      <h1>Top Tracks {termString(term)}</h1>
       <button onClick={() => setTerm("short_term")} className={s.button}>
         Past month
       </button>
@@ -80,22 +81,12 @@ const TopTracks: React.FC<TopTracksProps> = () => {
           />
         )
       )}
+      <br />
       <button
         onClick={() => {
           savePlaylist(
-            `Top 100 Tracks${(() => {
-              switch (term) {
-                case "short_term":
-                  return " (Past Month)";
-                case "medium_term":
-                  return " (Past 6 months)";
-                case "long_term":
-                  return " (All Time)";
-                default:
-                  return "";
-              }
-            })()}`,
-            new Date().toDateString(),
+            `Top 100 Tracks${termString(term)}`,
+            `Your top tracks. Generated on ${new Date().toDateString()}`,
             data.map((item) => item.uri)
           );
         }}

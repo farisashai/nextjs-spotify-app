@@ -4,7 +4,9 @@ import useSWR from "swr";
 import { defaultFetcher } from "utils/fetcher";
 import s from "styles/Home.module.scss";
 import style from "./styles.module.scss";
-
+import axios from "axios";
+import { savePlaylist } from "utils/spotify";
+import { termString } from "utils";
 interface TopArtistsProps {}
 
 interface ArtistDatatype {
@@ -48,7 +50,7 @@ const TopArtists: React.FC<TopArtistsProps> = () => {
 
   return (
     <div className={style.container}>
-      <h1>Top Artists</h1>
+      <h1>Top Artists {termString(term)}</h1>
       <button onClick={() => setTerm("short_term")} className={s.button}>
         Past month
       </button>
@@ -69,6 +71,33 @@ const TopArtists: React.FC<TopArtistsProps> = () => {
           number={index + 1}
         />
       ))}
+      <br />
+      <button
+        onClick={async () => {
+          let trackList = [];
+
+          for (const item of data) {
+            try {
+              const tracks = await axios
+                .get(`/api/spotify/artist/tracks?id=${item.id}`)
+                .then((res) => res.data.body.tracks.splice(0, 3));
+              trackList.push(...tracks);
+            } catch {
+              console.error(`fetch tracks failed: ${item.name}`);
+            }
+          }
+
+          trackList = trackList.map((item) => item.uri);
+
+          savePlaylist(
+            `Top 100 Artists${termString(term)}`,
+            `Top tracks from your top artists. Generated on ${new Date().toDateString()}`,
+            trackList
+          );
+        }}
+      >
+        Get Top Tracks
+      </button>
     </div>
   );
 };

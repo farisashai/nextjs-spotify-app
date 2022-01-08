@@ -32,7 +32,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     res.status(200).json(items);
   } catch {
-    return res.status(404);
+    return res.status(404).end();
   }
 };
 
