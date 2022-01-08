@@ -1,4 +1,3 @@
-import LogoutButton from "components/homePage/LogoutButton";
 import TopArtists from "components/homePage/TopArtists";
 import cookie from "cookie";
 import { GetServerSideProps, GetServerSidePropsResult } from "next";

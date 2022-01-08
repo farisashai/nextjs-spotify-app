@@ -1,4 +1,3 @@
-import LogoutButton from "components/homePage/LogoutButton";
 import TopArtists from "components/homePage/TopArtists";
 import TopTracks from "components/homePage/TopTracks";
 import cookie from "cookie";
