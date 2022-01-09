@@ -9,7 +9,7 @@ import { createSpotifyApi, setAuthHeaders } from "utils/spotify";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const {
-      query: { id },
+      query: { id = "4zUW6lwQf3wHRdYawFEEWQ" },
     } = req;
 
     const cookies = cookie.parse(req.headers.cookie || "");
@@ -17,7 +17,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const spotifyApi = createSpotifyApi(session.token.access_token);
 
     if (typeof id == "string") {
-      const tracks = await spotifyApi.getArtistTopTracks(id, "US");
+      const tracks = await spotifyApi.getAlbumTracks(id);
       res.status(200).json(tracks);
     } else {
       res.status(404).end();

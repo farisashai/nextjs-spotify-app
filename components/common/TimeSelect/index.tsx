@@ -1,19 +1,40 @@
-import { LONG_TERM, MEDIUM_TERM, SHORT_TERM } from "utils/constants";
+import {
+  ButtonType,
+  LONG_TERM,
+  MEDIUM_TERM,
+  SHORT_TERM,
+} from "utils/constants";
 import s from "styles/Home.module.scss";
 import s2 from "./styles.module.scss";
+import CustomButton from "../CustomButton";
 
-const TimeSelect = ({ setTerm }) => {
+const TimeSelect = ({ setTerm, resetSaved }) => {
   return (
     <div className={s2.row}>
-      <button onClick={() => setTerm(SHORT_TERM)} className={s.button}>
-        Past month
-      </button>
-      <button onClick={() => setTerm(MEDIUM_TERM)} className={s.button}>
-        Past 6 month
-      </button>
-      <button onClick={() => setTerm(LONG_TERM)} className={s.button}>
-        All time
-      </button>
+      <CustomButton
+        type={ButtonType.Button}
+        label="Past Month"
+        onClick={() => {
+          setTerm(SHORT_TERM);
+          resetSaved();
+        }}
+      />
+      <CustomButton
+        type={ButtonType.Button}
+        label="Past 6 Months"
+        onClick={() => {
+          setTerm(MEDIUM_TERM);
+          resetSaved();
+        }}
+      />
+      <CustomButton
+        type={ButtonType.Button}
+        label="All Time"
+        onClick={() => {
+          setTerm(LONG_TERM);
+          resetSaved();
+        }}
+      />
     </div>
   );
 };

@@ -6,21 +6,13 @@ const scopes = [
   "user-read-playback-state", // get current track
   "user-read-currently-playing", // get current track
   "user-modify-playback-state", // handle music player
-  "user-read-private", // get profile
-  "user-read-email",
-  "user-follow-modify",
-  "user-follow-read",
-  "user-library-modify",
-  "user-library-read",
-  "streaming",
-  "app-remote-control",
-  "user-read-playback-position",
-  "user-top-read",
-  "user-read-recently-played",
-  "user-read-playback-state",
+  "user-top-read", // top tracks
+  // "user-library-modify", LATER
+  // "user-library-read", LATER
+  // "streaming", LATER
+  // "user-read-recently-played", LATER
+  // "playlist-read-private", LATER
   "playlist-modify-private",
-  "playlist-read-collaborative",
-  "playlist-read-private",
   "playlist-modify-public",
 ];
 

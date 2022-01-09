@@ -15,7 +15,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       description = "",
       ispublic = false,
       collaborative = false,
-      tracks = [],
     } = req.body;
 
     const spotifyApi = createSpotifyApi(session.token.access_token);
@@ -26,14 +25,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       public: ispublic,
     });
 
-    const x = await Promise.all(
-      splitArray(tracks, 100).map(async (trackList: string[]) => {
-        return await spotifyApi.addTracksToPlaylist(
-          response.body.id,
-          trackList
-        );
-      })
-    );
+    res.status(200).json({ id: response.body.id });
 
     res.status(200).end();
   } catch {

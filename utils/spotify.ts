@@ -1,6 +1,7 @@
 // utils/spotify.ts
 import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
+import { splitArray } from "utils";
 import { UserSession } from "./cookies";
 
 // Create a new instance of the Spotify API
@@ -24,18 +25,28 @@ export const setAuthHeaders = (session: UserSession) => {
   };
 };
 
-export const savePlaylist = (
+export const savePlaylist = async (
   title = "Top Tracks",
   description,
   tracks = []
 ) => {
-  axios
+  const { id } = await axios
     .post("/api/spotify/playlist/create", {
       title: title,
       description,
       ispublic: false,
       collaborative: false,
-      tracks,
     })
+    .then((res) => res.data)
     .catch((err) => console.error(err));
+
+  const success = await Promise.all(
+    splitArray(tracks, 25).map((tracklist) => {
+      axios.post("/api/spotify/playlist/saveTracks", {
+        id,
+        tracks: tracklist,
+      });
+    })
+  );
+  return Boolean(success);
 };

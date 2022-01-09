@@ -11,3 +11,8 @@ export const SAVE_COMPLETE_LABEL = "Playlist successfully saved!";
 export const SHORT_TERM = "short_term";
 export const MEDIUM_TERM = "medium_term";
 export const LONG_TERM = "long_term";
+
+export enum ButtonType {
+  Link,
+  Button,
+}

@@ -6,12 +6,14 @@ import style from "./styles.module.scss";
 import { savePlaylist } from "utils/spotify";
 import { termString } from "utils";
 import {
+  ButtonType,
   SAVE_COMPLETE_LABEL,
   SAVE_IN_PROGRESS_LABEL,
   SAVE_PLAYLIST_LABEL,
 } from "utils/constants";
 import CardGrid from "components/common/CardGrid";
 import TimeSelect from "components/common/TimeSelect";
+import CustomButton from "components/common/CustomButton";
 
 interface TopTracksProps {}
 
@@ -45,7 +47,9 @@ const TopTracks: React.FC<TopTracksProps> = () => {
   if (error)
     return (
       <div className={style.container}>
-        <h1>Error</h1>
+        <h1>
+          Whoops! We ran into an error. Please refresh the page to try again.
+        </h1>
       </div>
     );
   if (!data)
@@ -65,10 +69,14 @@ const TopTracks: React.FC<TopTracksProps> = () => {
     <div className={style.container}>
       <h1>Top Tracks {termString(term)}</h1>
       <div className={s.buttonContainer}>
-        <TimeSelect setTerm={setTerm} />
-        <button
-          className={s.button}
-          onClick={() => {
+        <TimeSelect
+          setTerm={setTerm}
+          resetSaved={() => setSaveTerm(SAVE_PLAYLIST_LABEL)}
+        />
+        <CustomButton
+          type={ButtonType.Button}
+          label={saveTerm}
+          onClick={async () => {
             if (saveTerm === SAVE_PLAYLIST_LABEL) {
               setSaveTerm(SAVE_IN_PROGRESS_LABEL);
 
@@ -82,9 +90,7 @@ const TopTracks: React.FC<TopTracksProps> = () => {
               setSaveTerm(SAVE_COMPLETE_LABEL);
             }
           }}
-        >
-          {saveTerm}
-        </button>
+        />
       </div>
       <CardGrid items={data} imgLocator={(item) => item.album.images[0].url} />
     </div>

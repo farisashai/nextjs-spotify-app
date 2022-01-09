@@ -21,20 +21,10 @@ const HomePage: React.FC<HomeProps> = ({ session, track }) => {
     <>
       <Navbar user={session.user} track={track} setMode={setMode} />
       <hr />
-      {(() => {
-        switch (mode) {
-          case "artists":
-            return <TopArtists />;
-          case "tracks":
-            return <TopTracks />;
-          case "albums":
-            return <TopAlbums />;
-        }
-      })()}
-      {/* {mode === "artists" && <TopArtists />}
+      {mode === "artists" && <TopArtists />}
       {mode === "tracks" && <TopTracks />}
       {mode === "albums" && <TopAlbums />}
-      <MusicPlayer track={track} /> */}
+      <MusicPlayer track={track} />
     </>
   );
 };
