@@ -11,7 +11,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ image, alt, title, href, number }) => {
   return (
-    <div className={s.card} onClick={() => (document.location = href)}>
+    <div className={s.card2} onClick={() => (document.location = href)}>
       <Image
         className={s.image}
         src={image}

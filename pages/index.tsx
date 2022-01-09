@@ -2,7 +2,7 @@ import cookie from "cookie";
 import { GetServerSideProps, GetServerSidePropsResult } from "next";
 import { getSessionCookie } from "utils/cookies";
 import LoginButton from "components/common/LoginButton";
-import LearnMoreButton from "components/loginPage/LearnMoreButton";
+import LearnMoreButton from "components/common/LearnMoreButton";
 import { APP_TITLE, LANDING_DESC } from "utils/constants";
 import s from "styles/Login.module.scss";
 

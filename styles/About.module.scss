@@ -1,13 +1,9 @@
-.button {
-  // background: #000;
-  border: 2px solid #fff;
-  border-radius: 4px;
-  color: #fff;
-  cursor: pointer;
-  padding: 0.5rem;
-  text-decoration: none;
-
-  &:visited {
-    color: #fff;
-  }
+.container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 6rem);
+  text-align: center;
+  padding: 3rem;
 }

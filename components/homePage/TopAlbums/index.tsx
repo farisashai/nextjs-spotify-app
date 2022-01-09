@@ -1,11 +1,11 @@
-import Card from "components/common/Card";
 import { useState } from "react";
 import useSWR from "swr";
 import { defaultFetcher } from "utils/fetcher";
 import s from "styles/Home.module.scss";
 import style from "./styles.module.scss";
 import { termString } from "utils";
-import { LONG_TERM, MEDIUM_TERM, SHORT_TERM } from "utils/constants";
+import CardGrid from "components/common/CardGrid";
+import TimeSelect from "components/common/TimeSelect";
 
 interface TopArtistsProps {}
 
@@ -53,30 +53,9 @@ const TopAlbums: React.FC<TopArtistsProps> = () => {
     <div className={style.container}>
       <h1>Top Albums {termString(term)}</h1>
       <div className={s.buttonContainer}>
-        <div className="">
-          <button onClick={() => setTerm(SHORT_TERM)} className={s.button}>
-            Past month
-          </button>
-          <button onClick={() => setTerm(MEDIUM_TERM)} className={s.button}>
-            Past 6 month
-          </button>
-          <button onClick={() => setTerm(LONG_TERM)} className={s.button}>
-            All time
-          </button>
-        </div>
+        <TimeSelect setTerm={setTerm} />
       </div>
-
-      <br />
-      {data.map((item, index) => (
-        <Card
-          key={`${item.name}-${index}`}
-          image={item.images[0].url}
-          alt={item.name}
-          title={item.name}
-          href={item.external_urls.spotify}
-          number={index + 1}
-        />
-      ))}
+      <CardGrid items={data} imgLocator={(item) => item.images[0].url} />
     </div>
   );
 };
