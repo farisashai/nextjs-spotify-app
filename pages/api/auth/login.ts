@@ -3,11 +3,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 // These are the application scopes you will be request from each user logging in
 const scopes = [
-  "ugc-image-upload",
-  "user-read-playback-state",
-  "user-modify-playback-state",
-  "user-read-currently-playing",
-  "user-read-private",
+  "user-read-playback-state", // get current track
+  "user-read-currently-playing", // get current track
+  "user-modify-playback-state", // handle music player
+  "user-read-private", // get profile
   "user-read-email",
   "user-follow-modify",
   "user-follow-read",

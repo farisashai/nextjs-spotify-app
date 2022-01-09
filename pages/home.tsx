@@ -6,6 +6,9 @@ import { getSessionCookie, UserSession } from "utils/cookies";
 import { createSpotifyApi } from "utils/spotify";
 import s from "styles/Home.module.scss";
 import Navbar from "components/common/Navbar";
+import React, { useState } from "react";
+import TopTracks from "components/homePage/TopTracks";
+import TopAlbums from "components/homePage/TopAlbums";
 
 interface HomeProps {
   session: UserSession;
@@ -13,20 +16,23 @@ interface HomeProps {
 }
 
 const HomePage: React.FC<HomeProps> = ({ session, track }) => {
+  const [mode, setMode] = useState("artists");
   return (
     <div>
       <Navbar user={session.user} track={track} />
-      <Link href={"/home/top-artists"}>
-        <a className={s.button}>Top Artists</a>
-      </Link>
-      <Link href={"/home/top-tracks"}>
-        <a className={s.button}>Top Tracks</a>
-      </Link>
-      <Link href={"/home/top-albums"}>
-        <a className={s.button}>Top Albums</a>
-      </Link>
+      <button className={s.button} onClick={() => setMode("artists")}>
+        Top Artists
+      </button>
+      <button className={s.button} onClick={() => setMode("tracks")}>
+        Top Tracks
+      </button>
+      <button className={s.button} onClick={() => setMode("albums")}>
+        Top Albums
+      </button>
       <hr />
-      <TopArtists />
+      {mode === "artists" && <TopArtists />}
+      {mode === "tracks" && <TopTracks />}
+      {mode === "albums" && <TopAlbums />}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import s from "styles/Login.module.scss";
+import s from 'styles/Home.module.scss'
 
 interface LearnMoreProps {}
 
