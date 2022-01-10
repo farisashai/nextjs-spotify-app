@@ -9,7 +9,7 @@ interface CardProps {
   number: number;
 }
 
-const Card: React.FC<CardProps> = ({ image, alt, title, href, number }) => {
+const Card: React.FC<CardProps> = ({ image, alt, title, href }) => {
   return (
     <div className={s.card2} onClick={() => (document.location = href)}>
       <Image
@@ -20,10 +20,7 @@ const Card: React.FC<CardProps> = ({ image, alt, title, href, number }) => {
         height={200}
       />
       <div className={s.body}>
-        <p className={s.title}>
-          {/* {number}:  */}
-          {title}
-        </p>
+        <p className={s.title}>{title}</p>
       </div>
     </div>
   );

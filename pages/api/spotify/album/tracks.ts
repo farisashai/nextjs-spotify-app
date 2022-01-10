@@ -2,9 +2,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import cookie from "cookie";
 import { getSessionCookie } from "utils/cookies";
-import axios from "axios";
-import { API_URL } from "utils/constants";
-import { createSpotifyApi, setAuthHeaders } from "utils/spotify";
+import { createSpotifyApi } from "utils/spotify";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {

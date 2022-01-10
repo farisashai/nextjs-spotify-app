@@ -1,7 +1,5 @@
-import Link from "next/link";
 import { APP_TITLE, ButtonType } from "utils/constants";
 import s from "styles/About.module.scss";
-import s2 from "styles/Home.module.scss";
 import CustomButton from "components/common/CustomButton";
 interface AboutProps {}
 

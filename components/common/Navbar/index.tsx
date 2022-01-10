@@ -1,20 +1,17 @@
 import { Avatar } from "@material-ui/core";
 import LoginButton from "components/common/LoginButton";
 import s from "./styles.module.scss";
-import s2 from "styles/Home.module.scss";
 import { APP_TITLE, ButtonType } from "utils/constants";
 import Artist from "public/Artist.svg";
 import Album from "public/Album.svg";
 import Track from "public/Song.svg";
-import Image from "next/image";
 import CustomButton from "../CustomButton";
 interface NavbarProps {
   user: any;
-  track: any;
   setMode: Function;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ user, track, setMode }) => (
+const Navbar: React.FC<NavbarProps> = ({ user, setMode }) => (
   <div className={s.navbar}>
     <h1>{APP_TITLE}</h1>
     <div className={s.navlinks}>

@@ -4,7 +4,6 @@ import {
   MEDIUM_TERM,
   SHORT_TERM,
 } from "utils/constants";
-import s from "styles/Home.module.scss";
 import s2 from "./styles.module.scss";
 import CustomButton from "../CustomButton";
 
