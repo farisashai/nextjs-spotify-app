@@ -7,13 +7,10 @@ interface MusicPlayerProps {
 }
 
 const MusicPlayer: React.FC<MusicPlayerProps> = ({ track }) => {
-  console.log(track.item);
-
   if (!track.is_playing) return null;
 
   return (
     <div className={s.player}>
-      {/* <Image width={50} height={50} src={track.item.album.images[0]} alt="a" /> */}
       <p>{track.item.name}</p>
     </div>
   );

@@ -1,6 +1,6 @@
 export const APP_TITLE = "Spotify Stats";
 export const LANDING_DESC =
-  "Rediscover your taste and generate playlist recommendations";
+  "Rediscover your greatest hits and get customized recommendations";
 
 export const API_URL = "https://api.spotify.com";
 

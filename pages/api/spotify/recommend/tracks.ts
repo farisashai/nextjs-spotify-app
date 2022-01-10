@@ -2,24 +2,22 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import cookie from "cookie";
 import { getSessionCookie } from "utils/cookies";
-import { createSpotifyApi, getMarket } from "utils/spotify";
+import { createSpotifyApi } from "utils/spotify";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const {
-      query: { id },
+      query: { tracks },
     } = req;
+
+    console.log(req);
 
     const cookies = cookie.parse(req.headers.cookie || "");
     const session = await getSessionCookie(cookies);
     const spotifyApi = createSpotifyApi(session.token.access_token);
 
-    if (typeof id == "string") {
-      const tracks = await spotifyApi.getArtistTopTracks(id, await getMarket());
-      res.status(200).json(tracks);
-    } else {
-      res.status(404).end();
-    }
+    // spotifyApi.getRecommendations({});
+    res.status(200).end();
   } catch {
     return res.status(404).end();
   }

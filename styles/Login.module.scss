@@ -2,10 +2,18 @@
   display: flex;
   flex-flow: column;
   align-items: center;
+  background-image: linear-gradient(to right, #431f51ba, #a486d460),
+    url("/bg.jpg");
+  background-size: cover;
   justify-content: center;
   min-height: 100vh;
   text-align: center;
   a {
     margin: 1rem;
   }
+}
+
+.title {
+  font-size: 4rem;
+  // text-transform: uppercase;
 }

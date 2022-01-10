@@ -24,7 +24,7 @@ const HomePage: React.FC<HomeProps> = ({ session, track }) => {
       {mode === "artists" && <TopArtists />}
       {mode === "tracks" && <TopTracks />}
       {mode === "albums" && <TopAlbums />}
-      <MusicPlayer track={track} />
+      {/* <MusicPlayer track={track} /> */}
     </>
   );
 };

@@ -11,7 +11,7 @@ interface LoginProps {}
 const LoginPage: React.FC<LoginProps> = () => {
   return (
     <div className={s.container}>
-      <h1>{APP_TITLE}</h1>
+      <h1 className={s.title}>{APP_TITLE}</h1>
       <h2>{LANDING_DESC}</h2>
       <LoginButton loggedIn={false} />
       <CustomButton type={ButtonType.Link} label="Learn more" href={"/about"} />

@@ -1,4 +1,4 @@
-import Card from "../Card";
+import Card from "./Card";
 import s from "./styles.module.scss";
 
 const CardGrid = ({ items, imgLocator }) => {

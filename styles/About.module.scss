@@ -2,8 +2,14 @@
   display: flex;
   flex-flow: column;
   align-items: center;
+  background-image: linear-gradient(to right, #431f51ba, #a486d460),
+    url("/bg.jpg");
+  background-size: cover;
   justify-content: center;
   min-height: calc(100vh - 6rem);
-  text-align: center;
   padding: 3rem;
+  text-align: center;
+  a {
+    margin: 1rem;
+  }
 }

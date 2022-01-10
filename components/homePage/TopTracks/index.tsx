@@ -14,6 +14,8 @@ import {
 import CardGrid from "components/common/CardGrid";
 import TimeSelect from "components/common/TimeSelect";
 import CustomButton from "components/common/CustomButton";
+import axios from "axios";
+import qs from "qs";
 
 interface TopTracksProps {}
 
@@ -65,6 +67,7 @@ const TopTracks: React.FC<TopTracksProps> = () => {
       </div>
     );
 
+  console.log({ data });
   return (
     <div className={style.container}>
       <h1>Top Tracks {termString(term)}</h1>
@@ -72,6 +75,22 @@ const TopTracks: React.FC<TopTracksProps> = () => {
         <TimeSelect
           setTerm={setTerm}
           resetSaved={() => setSaveTerm(SAVE_PLAYLIST_LABEL)}
+        />
+        <CustomButton
+          type={ButtonType.Button}
+          label="Get Recommendations"
+          onClick={async () => {
+            const recs = await axios
+              .get("/api/spotify/recommend/tracks", {
+                params: {
+                  tracks: data.map((item) => item.id).splice(0, 4),
+                },
+                // paramsSerializer: (params) => {
+                //   return qs.stringify(params);
+                // },
+              })
+              .then((res) => res.data);
+          }}
         />
         <CustomButton
           type={ButtonType.Button}

@@ -3,7 +3,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import cookie from "cookie";
 import { getSessionCookie } from "utils/cookies";
 import { createSpotifyApi } from "utils/spotify";
-import { splitArray } from "utils";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {

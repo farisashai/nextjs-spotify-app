@@ -76,7 +76,6 @@ const TopAlbums: React.FC<TopArtistsProps> = () => {
               setSaveTerm(SAVE_IN_PROGRESS_LABEL);
 
               const trackList = [];
-              console.log({ data });
 
               for (const item of data) {
                 try {
@@ -88,7 +87,6 @@ const TopAlbums: React.FC<TopArtistsProps> = () => {
                   console.error(`fetch tracks failed: ${item.name}`);
                 }
               }
-              console.log({ trackList });
 
               savePlaylist(
                 `Top Albums${termString(term)}`,

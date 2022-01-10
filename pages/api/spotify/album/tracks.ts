@@ -9,7 +9,7 @@ import { createSpotifyApi, setAuthHeaders } from "utils/spotify";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const {
-      query: { id = "4zUW6lwQf3wHRdYawFEEWQ" },
+      query: { id },
     } = req;
 
     const cookies = cookie.parse(req.headers.cookie || "");

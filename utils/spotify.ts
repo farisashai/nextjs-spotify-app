@@ -50,3 +50,8 @@ export const savePlaylist = async (
   );
   return Boolean(success);
 };
+
+export const getMarket = async () => {
+  const geo = await axios.get("https://ipapi.co/json/").then((res) => res.data);
+  return geo.country_code;
+};
