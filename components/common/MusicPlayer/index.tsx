@@ -8,7 +8,7 @@ interface MusicPlayerProps {
 
 const MusicPlayer: React.FC<MusicPlayerProps> = () => {
   const {
-    data: { body: track },
+    data: { body: track } = { body: null },
     error,
     mutate,
   } = useSWR("/api/spotify/currentTrack", defaultFetcher);
@@ -19,6 +19,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = () => {
   }, [mutate]);
 
   if (error) return null;
+  if (!track) return null;
   if (!track.is_playing) return null;
 
   return (
